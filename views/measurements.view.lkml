@@ -149,7 +149,7 @@ view: measurements {
   }
   measure: liver_measure {
     type: average
-    sql: IF ${measurement_name} = 'Liver' THEN ${value__value} END ;;
+    sql: IF(${measurement_name} = 'Liver') THEN ${value__value} END ;;
   }
 
 }
