@@ -147,6 +147,11 @@ view: measurements {
     type: count
     drill_fields: [measurement_name, event__event_name]
   }
+  measure: liver_measure {
+    type: average
+    sql: IF ${measurement_name} = 'Liver' THEN ${value__value} END ;;
+  }
+
 }
 
 view: measurements__metadata {
