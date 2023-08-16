@@ -136,20 +136,32 @@ view: measurements {
     group_label: "Value"
     group_item_label: "Unit"
   }
-  dimension: value__value {
-    type: number
-    description: "Value of measurement"
-    sql: ${TABLE}.value.value ;;
-    group_label: "Value"
-    group_item_label: "Value"
-  }
+#  measure: value__value {
+#    type: average
+#    description: "Value of measurement"
+#    sql: ${TABLE}.value.value ;;
+#    group_label: "Value"
+#    group_item_label: "Value"
+#  }
   measure: count {
     type: count
     drill_fields: [measurement_name, event__event_name]
   }
+
   measure: liver_measure {
     type: average
-    sql: IF(${measurement_name} = 'Liver') THEN ${value__value} END ;;
+    sql: IF(${TABLE}.measurement_name = 'Liver') THEN ${TABLE}.value__value END ;;
+  }
+
+  measure: Liver_function_dose1 {
+    description: "ALTi"
+    type: average
+    sql: IF(${TABLE}.measurement_name = 'ALTi') THEN ${TABLE}.value__value END ;;
+  }
+
+  measure: Kindey_function_dose1 {
+    type: average
+    sql: IF(${TABLE}.measurement_name = 'BUN') THEN ${TABLE}.value__value END ;;
   }
 
 }
@@ -182,7 +194,6 @@ view: measurements__histo__stains {
     sql: ${TABLE}.image_url ;;
   }
   dimension: observations {
-    hidden: yes
     sql: ${TABLE}.observations ;;
   }
   dimension: type {
