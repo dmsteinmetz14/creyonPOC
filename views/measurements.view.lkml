@@ -150,18 +150,18 @@ view: measurements {
 
   measure: liver_measure {
     type: average
-    sql: IF(${TABLE}.measurement_name = 'Liver',CAST(${TABLE}.value AS NUMERIC),NULL) ;;
+    sql: IF(${TABLE}.measurement_name = 'Liver',${TABLE}.value.value,NULL) ;;
   }
 
   measure: Liver_function_dose1 {
     description: "ALTi"
     type: average
-    sql: IF(${TABLE}.measurement_name = 'ALTi',CAST(${TABLE}.value AS NUMERIC),NULL) ;;
+    sql: IF(${TABLE}.measurement_name = 'ALTi',${TABLE}.value.value,NULL) ;;
   }
 
   measure: Kindey_function_dose1 {
     type: average
-    sql: IF(${TABLE}.measurement_name = 'BUN',CAST(${TABLE}.value AS NUMERIC),NULL) ;;
+    sql: IF(${TABLE}.measurement_name = 'BUN',${TABLE}.value.value,NULL) ;;
   }
 
 }
