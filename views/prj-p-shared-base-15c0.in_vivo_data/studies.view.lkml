@@ -1,6 +1,5 @@
 # Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
 explore: studies {
-  hidden: yes
     join: studies__doses {
       view_label: "Studies: Doses"
       sql: LEFT JOIN UNNEST(${studies.doses}) as studies__doses ;;
@@ -154,12 +153,10 @@ view: studies__groups {
     sql: id ;;
   }
   dimension: animals {
-    hidden: yes
     sql: animals ;;
   }
   dimension: studies__groups {
     type: string
-    hidden: yes
     sql: studies__groups ;;
   }
   dimension: treatment__treatment {
