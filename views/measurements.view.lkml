@@ -148,14 +148,22 @@ view: measurements {
     drill_fields: [measurement_name, event__event_name]
   }
 
-  measure: liver_measure {
-    type: average
-    sql: IF(${TABLE}.measurement_name = 'Liver',${TABLE}.value.value,NULL) ;;
-  }
 
-  measure: Liver_function_dose1 {
+  measure: Avg_Liver_function_dose1 {
     description: "ALTi"
     type: average
+    sql: IF(${TABLE}.measurement_name = 'ALTi',${TABLE}.value.value,NULL) ;;
+  }
+
+  measure: Min_Liver_function_dose1 {
+    description: "ALTi"
+    type: min
+    sql: IF(${TABLE}.measurement_name = 'ALTi',${TABLE}.value.value,NULL) ;;
+  }
+
+  measure: Max_Liver_function_dose1 {
+    description: "ALTi"
+    type: max
     sql: IF(${TABLE}.measurement_name = 'ALTi',${TABLE}.value.value,NULL) ;;
   }
 
