@@ -172,6 +172,11 @@ view: measurements {
     sql: IF(${TABLE}.measurement_name = 'BUN',${TABLE}.value.value,NULL) ;;
   }
 
+  measure: value {
+    type: average
+    sql: ${TABLE}.value.value ;;
+  }
+
 }
 
 view: measurements__metadata {
