@@ -89,4 +89,13 @@ view: observations {
     type: count
     drill_fields: [event__event_name]
   }
+  measure: deaths {
+    type: sum
+    sql: IF(${TABLE}.mortality_status = "DEAD",1,0) ;;
+  }
+  measure: Alive {
+    type: sum
+    sql: IF(${TABLE}.mortality_status = "ALIVE",1,0) ;;
+  }
+
 }
