@@ -118,6 +118,7 @@ view: measurements {
     type: string
     description: "Unique identifier code for study"
     sql: ${TABLE}.study_code ;;
+    drill_fields: [subject_id]
   }
   dimension: subject_id {
     type: number
