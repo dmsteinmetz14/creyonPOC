@@ -150,19 +150,19 @@ view: measurements {
   }
 
 
-  measure: Avg_Liver_function_dose1 {
+  measure: Avg_Liver_function_dose_ALTi {
     description: "ALTi"
     type: average
     sql: IF(${TABLE}.measurement_name = 'ALTi',${TABLE}.value.value,NULL) ;;
   }
 
-  measure: Min_Liver_function_dose1 {
-    description: "ALTi"
-    type: min
-    sql: IF(${TABLE}.measurement_name = 'ALTi',${TABLE}.value.value,NULL) ;;
+  measure: Max_Liver_function_dose_AST {
+    description: "AST"
+    type: max
+    sql: IF(${TABLE}.measurement_name = 'AST',${TABLE}.value.value,NULL) ;;
   }
 
-  measure: Max_Liver_function_dose1 {
+  measure: Max_Liver_function_dose_ALTi {
     description: "ALTi"
     type: max
     sql: IF(${TABLE}.measurement_name = 'ALTi',${TABLE}.value.value,NULL) ;;
