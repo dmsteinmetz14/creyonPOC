@@ -1,6 +1,5 @@
 # Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
 explore: experiments {
-  hidden: yes
     join: experiments__plates {
       view_label: "Experiments: Plates"
       sql: LEFT JOIN UNNEST(${experiments.plates}) as experiments__plates ;;
@@ -49,13 +48,13 @@ view: experiments {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-	creyon_experiment_id,
-	experiments.creyon_experiment_id,
-	experiments.count,
-	prjpsharedbase15c0_assay_data_measurementshistory.count,
-	prjpsharedbase15c0_assay_data_measurements.count,
-	experimentshistory.count
-	]
+  creyon_experiment_id,
+  experiments.creyon_experiment_id,
+  experiments.count,
+  prjpsharedbase15c0_assay_data_measurementshistory.count,
+  prjpsharedbase15c0_assay_data_measurements.count,
+  experimentshistory.count
+  ]
   }
 
 }
