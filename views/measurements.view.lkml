@@ -140,9 +140,26 @@ view: measurements {
   }
 
 
-  measure: Avg_Liver_function_dose_ALTi {
+  measure: min_Liver_function_dose_ALTi {
     description: "ALTi"
-    type: average
+    type: min
+    sql: IF(${TABLE}.measurement_name = 'ALTi',${TABLE}.value.value,NULL) ;;
+  }
+
+  measure: lower_quartile_ALTi {
+    type: percentile
+    percentile: 25
+    sql: IF(${TABLE}.measurement_name = 'ALTi',${TABLE}.value.value,NULL) ;;
+  }
+
+  measure: median_ALTi {
+    type: median
+    sql:  IF(${TABLE}.measurement_name = 'ALTi',${TABLE}.value.value,NULL);;
+  }
+
+  measure: upper_quartile_ALTi {
+    type: percentile
+    percentile: 75
     sql: IF(${TABLE}.measurement_name = 'ALTi',${TABLE}.value.value,NULL) ;;
   }
 
@@ -167,6 +184,8 @@ view: measurements {
     type: average
     sql: ${TABLE}.value.value ;;
   }
+
+
 
 }
 
