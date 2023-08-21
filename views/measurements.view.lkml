@@ -134,7 +134,8 @@ view: measurements {
 #    group_item_label: "Value"
 #  }
   measure: count {
-    type: count
+    type: count_distinct
+    sql: ${TABLE}.subject_id ;;
     drill_fields: [measurement_name, event__event_name]
   }
 
@@ -257,8 +258,8 @@ view: observations1 {
     sql: ${TABLE}.treatment ;;
   }
   measure: count {
-    type: count
-    drill_fields: [event__event_name]
+    type: count_distinct
+    sql: ${TABLE}.subject_id
   }
   measure: deaths {
     type: sum
