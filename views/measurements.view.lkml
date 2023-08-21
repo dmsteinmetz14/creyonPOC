@@ -1,26 +1,14 @@
 # Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
 explore: measurements {
-    join: measurements__metadata {
-      view_label: "Measurements: Metadata"
-      sql: LEFT JOIN UNNEST(${measurements.metadata}) as measurements__metadata ;;
-      relationship: one_to_many
-    }
-    join: measurements__histo__stains {
-      view_label: "Measurements: Histo Stains"
-      sql: LEFT JOIN UNNEST(${measurements.histo__stains}) as measurements__histo__stains ;;
-      relationship: one_to_many
-    }
-    join: measurements__histo__numeric {
-      view_label: "Measurements: Histo Numeric"
-      sql: LEFT JOIN UNNEST(${measurements.histo__numeric}) as measurements__histo__numeric ;;
-      relationship: one_to_many
-    }
-    join: measurements__histo__stains__observations {
-      view_label: "Measurements: Histo Stains Observations"
-      sql: LEFT JOIN UNNEST(${measurements__histo__stains.observations}) as measurements__histo__stains__observations ;;
-      relationship: one_to_many
+    join: observations1 {
+      sql: LEFT JOIN ${observations1.study_code} = ${measurements.study_code}
+            AND ${observations1.subject_id} = ${measurements.subject_id}
+            AND ${observations1.treatment} = ${measurements.treatment};;
+      relationship: one_to_one
     }
 }
+
+
 view: measurements {
   sql_table_name: `prj-p-shared-base-15c0.in_vivo_data.measurements` ;;
 
@@ -180,82 +168,104 @@ view: measurements {
 
 }
 
-view: measurements__metadata {
+view: observations1 {
+  sql_table_name: `prj-p-shared-base-15c0.in_vivo_data.observations` ;;
 
-  dimension: key {
+  dimension: bq_load_id {
     type: string
-    description: "Key that describes the metadata"
-    sql: key ;;
+    description: "ID of load artifact"
+    sql: ${TABLE}.bq_load_id ;;
   }
-  dimension: measurements__metadata {
+  dimension: description {
     type: string
-    description: "Additional data associated with this measurement"
-    hidden: yes
-    sql: measurements__metadata ;;
+    description: "Description of observation"
+    sql: ${TABLE}.description ;;
   }
-  dimension: value {
+  dimension: event__days_offset {
+    type: number
+    description: "Days after start of study"
+    sql: ${TABLE}.event.days_offset ;;
+    group_label: "Event"
+    group_item_label: "Days Offset"
+  }
+  dimension: event__event_date {
     type: string
-    description: "Value associated with the key"
-    sql: value ;;
+    description: "Date of event"
+    sql: ${TABLE}.event.event_date ;;
+    group_label: "Event"
+    group_item_label: "Event Date"
   }
-}
+  dimension: event__event_name {
+    type: string
+    description: "Name of study event"
+    sql: ${TABLE}.event.event_name ;;
+    group_label: "Event"
+    group_item_label: "Event Name"
+  }
+  dimension: event__event_type {
+    type: string
+    description: "Type of study event"
+    sql: ${TABLE}.event.event_type ;;
+    group_label: "Event"
+    group_item_label: "Event Type"
+  }
+  dimension: event__start_date {
+    type: string
+    description: "Start date for study"
+    sql: ${TABLE}.event.start_date ;;
+    group_label: "Event"
+    group_item_label: "Start Date"
+  }
+  dimension: event__study_code {
+    type: string
+    description: "Unique identifier code for study"
+    sql: ${TABLE}.event.study_code ;;
+    group_label: "Event"
+    group_item_label: "Study Code"
+  }
+  dimension: event__title {
+    type: string
+    description: "Study title"
+    sql: ${TABLE}.event.title ;;
+    group_label: "Event"
+    group_item_label: "Title"
+  }
+  dimension: group_id {
+    type: number
+    description: "Within-study group identifier"
+    sql: ${TABLE}.group_id ;;
+  }
+  dimension: mortality_status {
+    type: string
+    description: "Whether animal is alive or dead at observation"
+    sql: ${TABLE}.mortality_status ;;
+  }
+  dimension: study_code {
+    type: string
+    description: "Unique identifier code for study"
+    sql: ${TABLE}.study_code ;;
+  }
+  dimension: subject_id {
+    type: number
+    description: "Within-study unique identifier of subject"
+    sql: ${TABLE}.subject_id ;;
+  }
+  dimension: treatment {
+    type: string
+    description: "Treatment applied"
+    sql: ${TABLE}.treatment ;;
+  }
+  measure: count {
+    type: count
+    drill_fields: [event__event_name]
+  }
+  measure: deaths {
+    type: sum
+    sql: IF(${TABLE}.mortality_status = "DEAD",1,0) ;;
+  }
+  measure: Alive {
+    type: sum
+    sql: IF(${TABLE}.mortality_status = "ALIVE",1,0) ;;
+  }
 
-view: measurements__histo__stains {
-
-  dimension: image_url {
-    type: string
-    description: "URL to stain image"
-    sql: ${TABLE}.image_url ;;
-  }
-  dimension: observations {
-    sql: ${TABLE}.observations ;;
-  }
-  dimension: type {
-    type: string
-    description: "Type of staining done"
-    sql: ${TABLE}.type ;;
-  }
-}
-
-view: measurements__histo__numeric {
-
-  dimension: expression {
-    type: string
-    description: "Severity of histopathology observation"
-    sql: ${TABLE}.expression ;;
-  }
-  dimension: percent_spread {
-    type: string
-    description: "Percent of area covered"
-    sql: ${TABLE}.percent_spread ;;
-  }
-}
-
-view: measurements__histo__stains__observations {
-
-  dimension: category {
-    type: string
-    description: "Semi-standardized category of the observation"
-    sql: ${TABLE}.category ;;
-  }
-  dimension: location {
-    type: string
-    description: "Location within organ"
-    sql: ${TABLE}.location ;;
-  }
-  dimension: notes {
-    type: string
-    description: "Additional notes on the observation"
-    sql: ${TABLE}.notes ;;
-  }
-  dimension: organ {
-    type: string
-    description: "Organ that observation is in"
-    sql: ${TABLE}.organ ;;
-  }
-  dimension: severity {
-    type: string
-    description: "Severity of the observation"
-    sql: ${TABLE}.severity ;;
-  }
 }
