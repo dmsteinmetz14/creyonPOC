@@ -1,7 +1,8 @@
 # Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
 explore: measurements {
     join: observations1 {
-      sql: LEFT JOIN ${observations1.study_code} = ${measurements.study_code}
+      sql: LEFT JOIN `prj-p-shared-base-15c0.in_vivo_data.observations` AS observations1
+      ON ${observations1.study_code} = ${measurements.study_code}
             AND ${observations1.subject_id} = ${measurements.subject_id}
             AND ${observations1.treatment} = ${measurements.treatment};;
       relationship: one_to_one
