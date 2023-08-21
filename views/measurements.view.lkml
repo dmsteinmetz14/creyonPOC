@@ -176,8 +176,27 @@ view: measurements {
   }
 
   measure: Kindey_function_dose1 {
+    description: "BUN"
     type: average
     sql: IF(${TABLE}.measurement_name = 'BUN',${TABLE}.value.value,NULL) ;;
+  }
+
+  measure: Kidney_function_baseline {
+    description: "Serum CREA"
+    type: max
+    sql: IF(${TABLE}.measurement_name = 'Serum CREA',${TABLE}.value.value,NULL) ;;
+  }
+
+  measure: OFT {
+    description: "OFT"
+    type: max
+    sql: IF(${TABLE}.measurement_name = 'OFT',${TABLE}.value.value,NULL) ;;
+  }
+
+  measure: IS_Score {
+    description: "IS Score"
+    type: max
+    sql: IF(${TABLE}.measurement_name = 'IS Score',${TABLE}.value.value,NULL) ;;
   }
 
   measure: value {
