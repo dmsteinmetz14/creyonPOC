@@ -259,7 +259,7 @@ view: observations1 {
   }
   measure: count {
     type: count_distinct
-    sql: ${TABLE}.subject_id
+    sql: ${TABLE}.subject_id ;;
   }
   measure: deaths {
     type: sum
