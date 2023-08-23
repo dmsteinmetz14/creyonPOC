@@ -7,6 +7,12 @@ explore: measurements {
             AND ${observations1.treatment} = ${measurements.treatment};;
       relationship: one_to_one
     }
+  join: histo_stains {
+    view_label: "Histo"
+    sql: LEFT JOIN UNNEST(${measurements.histo__stains}) as histo_stains ;;
+    relationship: one_to_one
+  }
+
 }
 
 
@@ -79,7 +85,7 @@ view: measurements {
     group_item_label: "Numeric"
   }
   dimension: histo__stains {
-    sql: ${TABLE}.histo.stains ;;
+    sql: ARRAY_TO_STRING(${TABLE}.histo.stains) ;;
     group_label: "Histo"
     group_item_label: "Stains"
   }
@@ -307,4 +313,13 @@ view: observations1 {
     sql: IF(${TABLE}.mortality_status = "ALIVE",1,0) ;;
   }
 
+}
+
+view: histo_stains {
+
+  dimension: histo_stains {
+    primary_key: yes
+    type: string
+    sql: histo_stains ;;
+  }
 }
