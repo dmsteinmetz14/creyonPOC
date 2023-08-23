@@ -79,7 +79,6 @@ view: measurements {
     group_item_label: "Numeric"
   }
   dimension: histo__stains {
-    hidden: yes
     sql: ${TABLE}.histo.stains ;;
     group_label: "Histo"
     group_item_label: "Stains"
