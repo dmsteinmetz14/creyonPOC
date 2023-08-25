@@ -85,7 +85,7 @@ view: measurements {
     group_item_label: "Numeric"
   }
   dimension: histo__stains {
-    sql: ARRAY_TO_STRING(${TABLE}.histo.stains) ;;
+    sql: ${TABLE}.histo.stains ;;
     group_label: "Histo"
     group_item_label: "Stains"
   }
