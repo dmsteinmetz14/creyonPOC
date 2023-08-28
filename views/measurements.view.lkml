@@ -204,6 +204,17 @@ view: measurements {
     sql: IF(${TABLE}.measurement_name = 'IS Score',${TABLE}.value.value,NULL) ;;
   }
 
+  measure: number_of_studies {
+    type: count_distinct
+    sql: ${TABLE}.study_code ;;
+  }
+
+  measure: treatments_in_study{
+    type: count_distinct
+    sql: ${TABLE}.treatment ;;
+
+  }
+
   measure: value {
     type: average
     sql: ${TABLE}.value.value ;;
