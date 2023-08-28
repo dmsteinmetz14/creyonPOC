@@ -319,6 +319,7 @@ view: histo_stains {
 
   dimension: histo_stains {
     primary_key: yes
+    hidden: yes
     type: string
     sql: histo_stains ;;
   }
