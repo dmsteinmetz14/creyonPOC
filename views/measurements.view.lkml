@@ -10,7 +10,7 @@ explore: measurements {
   join: histo__stains {
     view_label: "Histo"
     sql: LEFT JOIN UNNEST(${measurements.histo__stains}) as histo__stains ;;
-    relationship: one_to_one
+    relationship: one_to_many
   }
 
 }
@@ -73,6 +73,14 @@ view: measurements {
     group_label: "Event"
     group_item_label: "Title"
   }
+
+  dimension: histo_stains_observations_organ {
+    type: string
+    sql:   ${TABLE}.histo.stains ;;
+    group_label: "Histo"
+    group_item_label: "stains"
+  }
+
   dimension: group_id {
     type: number
     description: "Within-study group identifier"
