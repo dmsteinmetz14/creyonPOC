@@ -7,11 +7,11 @@ explore: measurements {
             AND ${observations1.treatment} = ${measurements.treatment};;
       relationship: one_to_one
     }
- # join: histo_stains {
-#    view_label: "Histo"
- #   sql: LEFT JOIN UNNEST(${measurements.histo__stains_observations}) as histo_stains ;;
-#    relationship: one_to_one
-#  }
+  join: histo_stains {
+    view_label: "Histo"
+    sql: LEFT JOIN UNNEST(${measurements.histo__stains_observations}) as histo_stains ;;
+    relationship: one_to_one
+  }
 
 }
 
