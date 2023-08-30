@@ -340,7 +340,7 @@ view: histo__stains__observations {
 
   dimension: histo_stains_observations_organ {
     type: string
-    sql:   ${TABLE}.observations.organ ;;
+    sql:   ${TABLE}.organ ;;
     group_label: "Histo"
     group_item_label: "organ"
   }
