@@ -7,9 +7,9 @@ explore: measurements {
             AND ${observations1.treatment} = ${measurements.treatment};;
       relationship: one_to_one
     }
-  join: histo_stains_observations {
+  join: histo__stains__observations {
     view_label: "Histo"
-    sql: LEFT JOIN UNNEST(${measurements.histo__stains}) as histo_stains_observations ;;
+    sql: LEFT JOIN UNNEST(${measurements.histo__stains}) as histo__stains__observations ;;
     relationship: one_to_one
   }
 
@@ -329,10 +329,12 @@ view: observations1 {
 
 }
 
-view: histo_stains_observations {
+view: histo__stains__observations {
 
-  dimension: histo_stains_observations {
+  dimension: histo_stains_observations_organ {
     type: string
-    sql:   observations ;;
+    sql:   ${TABLE}.histo.stains.observations.organ ;;
+    group_label: "Histo"
+    group_item_label: "organ"
   }
 }
