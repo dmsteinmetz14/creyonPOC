@@ -9,7 +9,7 @@ explore: measurements {
     }
   join: histo__stains {
     view_label: "Histo"
-    sql: LEFT JOIN UNNEST(${measurements.histo__stains}) as histo__stainss ;;
+    sql: LEFT JOIN UNNEST(${measurements.histo__stains}) as histo__stains ;;
     relationship: one_to_one
   }
 
